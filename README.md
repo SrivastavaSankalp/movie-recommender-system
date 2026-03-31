@@ -23,3 +23,11 @@ IMDb Top 1000 Movies Dataset (1920–2020)
 ```bash
 pip install -r requirements.txt
 python src/main.py
+
+## Future Improvements
+
+- Implement content-based recommendation using plot similarity (NLP)
+- Add multi-filter search (combine genre, rating, and year)
+- Improve similarity logic beyond genre matching
+- Build a web interface using Streamlit for better user experience
+- Add support for user preferences and watch history
