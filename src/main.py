@@ -1,11 +1,11 @@
 import pandas as pd
-import random
+import random #to genrate random number for movie 
 import os
 
-
-def load_data():
+#Collects data from the given dataset
+def load_data(): 
     try:
-        current_dir = os.path.dirname(__file__)
+        current_dir = os.path.dirname(__file__) 
         file_path = os.path.join(current_dir, "imdb_top_1000.csv")
 
         df = pd.read_csv(file_path)
@@ -19,7 +19,7 @@ def load_data():
         print("❌ Error loading dataset:", e)
         return None
 
-
+#function for sort by rating
 def get_verdict(rating):
     try:
         rating = float(rating)
@@ -35,7 +35,7 @@ def get_verdict(rating):
     else:
         return "😐 TIMEPASS"
 
-
+#shows movie information
 def display_movie(row):
     cast = ", ".join(filter(None, [
         str(row.get("star1", "")),
@@ -57,7 +57,7 @@ def display_movie(row):
     print(f"👥 Cast          : {cast}")
     print("=" * 70 + "\n")
 
-
+#function to browse the movies
 def browse_results(results):
     page_size = 10
     total = len(results)
@@ -87,7 +87,7 @@ def browse_results(results):
         else:
             break
 
-
+#function to search movie based on genre
 def search_by_genre(df):
     genre = input("\n🎭 Enter genre: ").strip().lower()
     results = df[df["genre"].str.lower().str.contains(genre, na=False)]
@@ -99,7 +99,7 @@ def search_by_genre(df):
     results = results.sort_values(by="imdb_rating", ascending=False)
     browse_results(results)
 
-
+#funcion to search for movie based on rating
 def search_by_rating(df):
     print("\n⭐ Choose how you want to search:\n")
     print("1. Minimum rating\n2. Exact rating\n3. Custom range")
@@ -131,7 +131,7 @@ def search_by_rating(df):
     results = results.sort_values(by="imdb_rating", ascending=False)
     browse_results(results)
 
-
+#function to search movies based on year
 def search_by_year(df):
     print("\n📅 NOTE: Dataset contains movies from 1920 to 2020\n")
 
@@ -157,7 +157,7 @@ def search_by_year(df):
     results = results.sort_values(by="imdb_rating", ascending=False)
     browse_results(results)
 
-
+#function for random recommendation of movies
 def random_recommendations(df):
     sample = df.sample(5)
 
@@ -165,7 +165,7 @@ def random_recommendations(df):
         display_movie(row)
 
 
-# 🔥 Similar movies
+# function to show similar movies based on current movie
 def show_similar_movies(df, current_movie):
     genre = current_movie.get("genre", "")
     genres = genre.split(",")
@@ -196,7 +196,7 @@ def show_similar_movies(df, current_movie):
             show_similar_movies(df, results.iloc[idx])
 
 
-# 🔍 Search by name
+# function to search movie based on name
 def search_by_name(df):
     name = input("\n🔍 Enter movie name: ").strip().lower()
     results = df[df["series_title"].str.lower().str.contains(name, na=False)]
@@ -219,7 +219,7 @@ def search_by_name(df):
             display_movie(selected)
             show_similar_movies(df, selected)
 
-
+#function to show menu for movie recommendation selection
 def show_menu():
     print("\n" + "=" * 70)
     print("🎬 MOVIE RECOMMENDER SYSTEM".center(70))
@@ -232,7 +232,7 @@ def show_menu():
     print("5. Search by Name 🔍")
     print("6. Exit\n")
 
-
+#main function
 def main():
     df = load_data()
 
