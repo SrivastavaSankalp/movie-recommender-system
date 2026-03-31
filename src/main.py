@@ -27,13 +27,13 @@ def get_verdict(rating):
         return "N/A"
 
     if rating >= 8.5:
-        return "🔥🔥 A MUST WATCH 🔥🔥"
+        return " A MUST WATCH "
     elif rating >= 7.5:
-        return "✅ GO FOR IT"
+        return " GO FOR IT"
     elif rating >= 6.5:
-        return "👍 DECENT ONE TIME WATCH"
+        return " DECENT ONE TIME WATCH"
     else:
-        return "😐 TIMEPASS"
+        return " TIMEPASS"
 
 #shows movie information
 def display_movie(row):
@@ -66,12 +66,12 @@ def browse_results(results):
     while index < total:
         chunk = results.iloc[index:index + page_size]
 
-        print(f"\n📄 Showing {index + 1} to {min(index + page_size, total)} of {total}:\n")
+        print(f"\n Showing {index + 1} to {min(index + page_size, total)} of {total}:\n")
 
         for i, (_, row) in enumerate(chunk.iterrows(), 1):
-            print(f"{i}. {row['series_title']} ⭐ {row['imdb_rating']}")
+            print(f"{i}. {row['series_title']}  {row['imdb_rating']}")
 
-        choice = input("\n👉 Enter number | 'm' for more | Enter to exit: ").strip().lower()
+        choice = input("\n Enter number | 'm' for more | Enter to exit: ").strip().lower()
 
         if choice == "m":
             index += page_size
@@ -82,14 +82,14 @@ def browse_results(results):
                 display_movie(chunk.iloc[idx])
                 show_similar_movies(results, chunk.iloc[idx])
             else:
-                print("⚠️ Invalid selection")
+                print(" Invalid selection")
 
         else:
             break
 
 #function to search movie based on genre
 def search_by_genre(df):
-    genre = input("\n🎭 Enter genre: ").strip().lower()
+    genre = input("\nEnter genre: ").strip().lower()
     results = df[df["genre"].str.lower().str.contains(genre, na=False)]
 
     if results.empty:
@@ -101,10 +101,10 @@ def search_by_genre(df):
 
 #funcion to search for movie based on rating
 def search_by_rating(df):
-    print("\n⭐ Choose how you want to search:\n")
+    print("\n Choose how you want to search:\n")
     print("1. Minimum rating\n2. Exact rating\n3. Custom range")
 
-    choice = input("👉 Enter choice: ").strip()
+    choice = input("Enter choice: ").strip()
 
     if choice == "1":
         r = float(input("Enter minimum rating: "))
@@ -121,11 +121,11 @@ def search_by_rating(df):
         results = df[(df["imdb_rating"] >= low) & (df["imdb_rating"] <= high)]
 
     else:
-        print("⚠️ Invalid choice")
+        print("Invalid choice")
         return
 
     if results.empty:
-        print("❌ No results found.")
+        print(" No results found.")
         return
 
     results = results.sort_values(by="imdb_rating", ascending=False)
@@ -133,7 +133,7 @@ def search_by_rating(df):
 
 #function to search movies based on year
 def search_by_year(df):
-    print("\n📅 NOTE: Dataset contains movies from 1920 to 2020\n")
+    print("\nNOTE: Dataset contains movies from 1920 to 2020\n")
 
     choice = input("1. Specific year\n2. Range\n👉 Choice: ").strip()
 
@@ -147,11 +147,11 @@ def search_by_year(df):
         results = df[(df["released_year"] >= start) & (df["released_year"] <= end)]
 
     else:
-        print("⚠️ Invalid choice")
+        print("Invalid choice")
         return
 
     if results.empty:
-        print("❌ No results found.")
+        print("No results found.")
         return
 
     results = results.sort_values(by="imdb_rating", ascending=False)
@@ -182,12 +182,12 @@ def show_similar_movies(df, current_movie):
     if results.empty:
         return
 
-    print("\n🔥 Similar Movies:\n")
+    print("\n Similar Movies:\n")
 
     for i, (_, row) in enumerate(results.iterrows(), 1):
-        print(f"{i}. {row['series_title']} ⭐ {row['imdb_rating']}")
+        print(f"{i}. {row['series_title']}  {row['imdb_rating']}")
 
-    choice = input("\n👉 Select a movie (Enter to skip): ").strip()
+    choice = input("\n Select a movie (Enter to skip): ").strip()
 
     if choice.isdigit():
         idx = int(choice) - 1
@@ -198,11 +198,11 @@ def show_similar_movies(df, current_movie):
 
 # function to search movie based on name
 def search_by_name(df):
-    name = input("\n🔍 Enter movie name: ").strip().lower()
+    name = input("\n Enter movie name: ").strip().lower()
     results = df[df["series_title"].str.lower().str.contains(name, na=False)]
 
     if results.empty:
-        print("❌ Movie not found.")
+        print(" Movie not found.")
         return
 
     results = results.sort_values(by="imdb_rating", ascending=False)
@@ -210,7 +210,7 @@ def search_by_name(df):
     for i, (_, row) in enumerate(results.head(10).iterrows(), 1):
         print(f"{i}. {row['series_title']} ⭐ {row['imdb_rating']}")
 
-    choice = input("\n👉 Select a movie: ").strip()
+    choice = input("\n Select a movie: ").strip()
 
     if choice.isdigit():
         idx = int(choice) - 1
@@ -222,7 +222,7 @@ def search_by_name(df):
 #function to show menu for movie recommendation selection
 def show_menu():
     print("\n" + "=" * 70)
-    print("🎬 MOVIE RECOMMENDER SYSTEM".center(70))
+    print(" MOVIE RECOMMENDER SYSTEM".center(70))
     print("=" * 70)
 
     print("\n1. Search by Genre")
@@ -238,7 +238,7 @@ def main():
 
     while True:
         show_menu()
-        choice = input("👉 Enter choice: ")
+        choice = input(" Enter choice: ")
 
         if choice == "1":
             search_by_genre(df)
@@ -253,7 +253,7 @@ def main():
         elif choice == "6":
             break
         else:
-            print("⚠️ Invalid choice")
+            print(" Invalid choice")
 
 
 if __name__ == "__main__":
