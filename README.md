@@ -42,14 +42,23 @@ The system is designed to be interactive, user-friendly, and efficient for explo
 
 ## Project Structure
 TV_SHOWS_PROJECT/
+
 │
+
 ├── src/
+
 │ ├── main.py
+
 │ └── imdb_top_1000.csv
+
 │
+
 ├── requirements.txt
+
 ├── README.md
+
 ├── LICENSE
+
 └── .gitignore
 
 ## Requirements
